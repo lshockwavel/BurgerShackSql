@@ -21,6 +21,10 @@ public class BurgersService
 
     public string DeleteBurger(int id)
     {
+        Burger burger = GetBurgerById(id);
+
+
+        
         bool deleted = _repo.Delete(id);
         if (deleted)
         {
@@ -31,7 +35,7 @@ public class BurgersService
 
     public Burger UpdateBurger(int id, Burger update)
     {
-        Burger originalBurger = _repo.GetById(id);
+        Burger originalBurger = GetBurgerById(id);
 
         originalBurger.Name = update.Name ?? originalBurger.Name;
         originalBurger.Description = update.Description ?? originalBurger.Description;
@@ -39,5 +43,15 @@ public class BurgersService
         originalBurger.IsAvailable = update.IsAvailable ?? originalBurger.IsAvailable;
 
         return _repo.Update(id, originalBurger);
+    }
+
+    public Burger GetBurgerById(int id)
+    {
+        Burger burger = _repo.GetById(id);
+        if (burger == null)
+        {
+            throw new Exception("Invalid ID");
+        }
+        return burger;
     }
 }

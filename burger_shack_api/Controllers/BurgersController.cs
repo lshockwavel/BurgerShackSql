@@ -30,6 +30,20 @@ public class BurgersController : ControllerBase
         }
     }
 
+    [HttpGet("{id}")]
+    public ActionResult<Burger> GetBurgerById(int id)
+    {
+        try
+        {
+            Burger burger = _service.GetBurgerById(id);
+            return Ok(burger);
+        }
+        catch (Exception e)
+        {
+            return BadRequest(e.Message);
+        }
+    }
+
 
     [HttpPost]
     public ActionResult<Burger> CreateBurger([FromBody] Burger burger)

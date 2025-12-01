@@ -35,6 +35,7 @@ public class BurgersRepository : IRepository<Burger>
     {
         string sql = "DELETE FROM burgers WHERE id = @id LIMIT 1;";
         int affectedRows = _db.Execute(sql, new { id });
+        
 
         if(affectedRows != 1)
         {
@@ -56,7 +57,7 @@ public class BurgersRepository : IRepository<Burger>
         WHERE id = @BurgerId;
         SELECT * FROM burgers WHERE id = @BurgerId;";
 
-        int rowsAffected = _db.Execute(sql, new { BurgerId = burgerId, burger.Name, burger.Description, burger.Price, burger.IsAvailable });
+        int rowsAffected = _db.Execute(sql, new { BurgerId = burgerId, burger.Name, burger.Description, burger.Price, burger.IsAvailable }); //REVIEW Is there a better way to do this?
         if (rowsAffected != 1)
         {
             throw new Exception( rowsAffected + " rows were affected, expected 1.");
